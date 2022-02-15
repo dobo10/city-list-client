@@ -20,4 +20,8 @@ export class CityService {
     );
   }
 
+  findByName(name: string) : Observable<City> {
+    return this.http.get("/cities/v1/name/" + name).pipe(map(res => <City>res));
+  }
+
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { CityService } from '../services/city.service';
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {City} from "../models/city";
 
 @Component({
   selector: 'app-city',
@@ -9,6 +10,7 @@ import {MatPaginator, PageEvent} from "@angular/material/paginator";
 })
 export class CityComponent implements OnInit {
   cities: any | undefined;
+  foundCity!: City;
   displayedColumns = ["Id", "Name", "Url"];
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
@@ -19,6 +21,7 @@ export class CityComponent implements OnInit {
     this.service.getCities(0, 3).subscribe(data => {
       this.cities = data;
     });
+
   }
 
   onPageChange(event: PageEvent) {
@@ -26,6 +29,14 @@ export class CityComponent implements OnInit {
     let endIndex = event.pageSize;
     if (endIndex > 1000) endIndex = 1000;
     this.cities = this.service.getCities(startIndex, endIndex);
+  }
+
+  searchCity(name: string) {
+    if (name.length > 1) {
+      this.service.findByName(name).subscribe(data => {
+        this.foundCity = data;
+      });
+    }
   }
 
 }
