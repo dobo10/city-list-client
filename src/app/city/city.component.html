@@ -1,0 +1,31 @@
+<mat-table class="lessons-table mat-elevation-z8" [dataSource]="cities">
+
+  <ng-container matColumnDef="Id">
+    <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+    <mat-cell *matCellDef="let city">{{city.id}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell class="duration-cell"
+              *matCellDef="let city">{{city.name}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Url">
+    <mat-header-cell *matHeaderCellDef>Photo</mat-header-cell>
+    <mat-cell class="duration-cell"
+              *matCellDef="let city"><img width="75px" height="75px" src="{{city.imageUrl}}"/></mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+</mat-table>
+
+<mat-paginator [length]="1000"
+               [pageSize]="3"
+               [pageSizeOptions]="[3, 5, 10]"
+               (page)="onPageChange($event)">
+</mat-paginator>
+
