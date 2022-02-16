@@ -24,4 +24,8 @@ export class CityService {
     return this.http.get("/cities/v1/name/" + name).pipe(map(res => <City>res));
   }
 
+  editCity(city: object) : Observable<City> {
+    return this.http.put("cities/v1", city).pipe(map(res => <City>res));
+  }
+
 }
